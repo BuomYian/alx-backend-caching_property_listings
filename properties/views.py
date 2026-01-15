@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.core.cache import cache
+from django.shortcuts import render
 from .models import Property
 from .serializers import PropertySerializer
 
@@ -52,3 +53,25 @@ class PropertyViewSet(viewsets.ModelViewSet):
             cache.set(cache_key, stats, timeout=60 * 15)
 
         return Response(stats)
+
+
+@cache_page(60 * 15)  # Cache for 15 minutes
+def property_list(request):
+    """
+    View to display all properties with caching enabled.
+
+    This view returns all properties cached in Redis for 15 minutes.
+    The @cache_page decorator caches the entire HTTP response.
+
+    Args:
+        request: HTTP request object
+
+    Returns:
+        HttpResponse with rendered template containing all properties
+    """
+    properties = Property.objects.all().order_by('-created_at')
+    context = {
+        'properties': properties,
+        'total_count': properties.count(),
+    }
+    return render(request, 'properties/property_list.html', context)
