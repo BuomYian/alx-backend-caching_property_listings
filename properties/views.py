@@ -70,7 +70,7 @@ def property_list(request):
         JsonResponse with all properties data
     """
     properties = Property.objects.all().order_by('-created_at')
-    data = {
+    return JsonResponse({
         'properties': [
             {
                 'id': prop.id,
@@ -83,5 +83,4 @@ def property_list(request):
             for prop in properties
         ],
         'total_count': properties.count(),
-    }
-    return JsonResponse(data)
+    })
