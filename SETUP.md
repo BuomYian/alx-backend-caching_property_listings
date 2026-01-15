@@ -5,7 +5,7 @@ This guide documents the complete setup of the Django property listing applicati
 ## What Was Initialized
 
 ### 1. Django Project Structure
-- **Project Name:** `alx-backend-caching_property_listings`
+- **Project Name:** `alx_backend_caching_property_listings`
 - **Main App:** `properties`
 - **Framework:** Django 3.2.18
 - **Database:** PostgreSQL
@@ -15,10 +15,10 @@ This guide documents the complete setup of the Django property listing applicati
 
 #### Core Django Files
 - `manage.py` - Django management script
-- `alx-backend-caching_property_listings/settings.py` - Django settings with PostgreSQL and Redis configuration
-- `alx-backend-caching_property_listings/urls.py` - URL routing configuration
-- `alx-backend-caching_property_listings/wsgi.py` - WSGI application entry point
-- `alx-backend-caching_property_listings/asgi.py` - ASGI application entry point
+- `alx_backend_caching_property_listings/settings.py` - Django settings with PostgreSQL and Redis configuration
+- `alx_backend_caching_property_listings/urls.py` - URL routing configuration
+- `alx_backend_caching_property_listings/wsgi.py` - WSGI application entry point
+- `alx_backend_caching_property_listings/asgi.py` - ASGI application entry point
 
 #### Properties App Files
 - `properties/models.py` - Property model with fields: title, description, price, location, created_at

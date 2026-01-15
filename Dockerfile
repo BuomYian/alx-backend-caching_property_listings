@@ -24,4 +24,4 @@ RUN mkdir -p /app/logs
 
 # Run migrations and start server
 EXPOSE 8000
-CMD ["gunicorn", "alx-backend-caching_property_listings.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "alx_backend_caching_property_listings.wsgi:application", "--bind", "0.0.0.0:8000"]
