@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.core.cache import cache
-from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Property
 from .serializers import PropertySerializer
 
@@ -67,11 +67,21 @@ def property_list(request):
         request: HTTP request object
 
     Returns:
-        HttpResponse with rendered template containing all properties
+        JsonResponse with all properties data
     """
     properties = Property.objects.all().order_by('-created_at')
-    context = {
-        'properties': properties,
+    data = {
+        'properties': [
+            {
+                'id': prop.id,
+                'title': prop.title,
+                'description': prop.description,
+                'price': float(prop.price),
+                'location': prop.location,
+                'created_at': prop.created_at.isoformat(),
+            }
+            for prop in properties
+        ],
         'total_count': properties.count(),
     }
-    return render(request, 'properties/property_list.html', context)
+    return JsonResponse(data)
