@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from .models import Property
 from .serializers import PropertySerializer
+from .utils import get_all_properties
 
 
 class PropertyViewSet(viewsets.ModelViewSet):
@@ -62,6 +63,7 @@ def property_list(request):
 
     This view returns all properties cached in Redis for 15 minutes.
     The @cache_page decorator caches the entire HTTP response.
+    Uses get_all_properties() for low-level queryset caching.
 
     Args:
         request: HTTP request object
@@ -69,7 +71,7 @@ def property_list(request):
     Returns:
         JsonResponse with all properties data
     """
-    properties = Property.objects.all().order_by('-created_at')
+    properties = get_all_properties().order_by('-created_at')
     return JsonResponse({
         'properties': [
             {
